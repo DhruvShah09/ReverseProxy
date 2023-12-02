@@ -32,7 +32,7 @@ def replace_proxy_data(new_proxy_data):
         for line in file:
             if "proxy_pass" in line:
                 # Replace the IP and port in the proxy_pass line
-                line = f"        proxy_pass {new_proxy_data};\n"
+                line = f"        proxy_pass http://{new_proxy_data};\n"
             print(line, end='')
 
 if __name__ == "__main__":
