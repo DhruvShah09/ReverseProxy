@@ -19,7 +19,9 @@ async def reload_nginx(request_body: dict):
         replace_proxy_data(new_proxy_data)
 
         # Send HUP signal to Nginx master process
-        subprocess.run(["sudo", "kill", "-HUP", "$(cat /var/run/nginx.pid)"], check=True)
+        file = open("/var/run/nginx.pid", "r")
+        pid = file.read().strip()
+        subprocess.run(["sudo", "kill", "-HUP", pid], check=True)
 
         return {"message": "Nginx reloaded successfully"}
     except subprocess.CalledProcessError as e:
